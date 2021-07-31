@@ -7,14 +7,28 @@ import FontStyle from '../../../Compoents/FontStyle';
 import CrevedNav from '../../../Compoents/CravedNavDesign';
 import ChooseCar from './ChooseCarCell';
 import OrderSummery from '../SelectTimeSlot/OrderSummeryView';
+import { SSelectCar } from '../../../Compoents/SkeletonView';
+
 // import SearchView from '../../../Compoents/SearchView';
 // import OrderSummery from './OrderSummeryView'
 export default class SelectCar extends Component {
 
+    constructor() {
+        super()
+        this.state = {
 
+            isLoading: true
+
+        }
+    }
 
 
     componentDidMount = () => {
+        let timer = setTimeout(() => {
+            // console.log('dfsdfsduyfiusuydfiouysdiuyfoydsoiufyod')
+            this.isLoadingControl(false)
+
+        }, 3000)
     }
 
     backNavigation = () => {
@@ -29,7 +43,9 @@ export default class SelectCar extends Component {
         // alert('s')
         this.props.navigation.navigate("Address")
     }
-
+    isLoadingControl = () => {
+        this.setState({ isLoading: false })
+    }
 
 
     render() {
@@ -49,9 +65,10 @@ export default class SelectCar extends Component {
                         <TouchableOpacity style={{ height: 116, marginLeft: 16, marginRight: 16, marginTop: 24, backgroundColor: '#ffff', borderRadius: 16 }}
                             onPress={this.selectAddressPage}
                         >
-                            <ChooseCar
+                            {this.state.isLoading ? <SSelectCar /> : <ChooseCar
                                 showRightArrow={true}
-                            />
+                            />}
+
                         </TouchableOpacity>
                         <TouchableOpacity style={{ marginTop: 24, marginLeft: 16, marginRight: 16, height: 56, backgroundColor: '#ffff', borderRadius: 16, justifyContent: 'center', alignItems: 'center' }}
                             onPress={this.addCarPage}

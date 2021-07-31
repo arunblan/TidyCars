@@ -10,7 +10,7 @@ import ServiceTypeViews from './ServiceTypeView'
 import WashingMethodViews from './WashingMethodView'
 import AddOnsView from './AddOns'
 import TotalPriceView from './TotalPriceView'
-import { SCircle, SBox } from '../../Compoents/SkeletonView';
+import { SCircle, SaddOns } from '../../Compoents/SkeletonView';
 
 export default class ServiceOptions extends Component {
 
@@ -34,17 +34,17 @@ export default class ServiceOptions extends Component {
             ],
             serviceTypeId: null,
             washingMethodId: null,
-            isLoading: false
+            isLoading: true
 
         }
     }
 
     componentDidMount = () => {
-        // let hghj = setTimeout(() => {
-        //     // console.log('dfsdfsduyfiusuydfiouysdiuyfoydsoiufyod')
-        //     setisLoading(false)
+        let timer = setTimeout(() => {
+            // console.log('dfsdfsduyfiusuydfiouysdiuyfoydsoiufyod')
+            this.isLoadingControl(false)
 
-        // }, 5000)
+        }, 3000)
     }
 
 
@@ -62,6 +62,10 @@ export default class ServiceOptions extends Component {
         // console.log(clicked)
 
         this.setState({ serviceTypeId: id })
+    }
+
+    isLoadingControl = () => {
+        this.setState({ isLoading: false })
     }
 
     washMethodButton = (id) => {
@@ -106,7 +110,7 @@ export default class ServiceOptions extends Component {
                 <ScrollView style={{ flex: 1, }} bounces={false}>
                     <View style={styles.viewContainer}>
                         <CrevedNav
-                            navTittle='Truck'
+                            navTittle='Service'
                             navHeight='120'
                             backOnPress={this.backNavigation}
                         />
@@ -137,6 +141,10 @@ export default class ServiceOptions extends Component {
                             {this.state.addOnsList.map((item) => {
                                 if (this.state.isLoading) {
                                     return (
+                                        <SaddOns />
+                                    )
+                                } else {
+                                    return (
                                         <AddOnsView
                                             Tittle={item.name}
                                             amount={item.amount}
@@ -144,8 +152,6 @@ export default class ServiceOptions extends Component {
                                             addOnPress={() => this.addonsButton(item.id)}
                                         />
                                     )
-                                } else {
-                                    <SBox />
                                 }
 
                             })}
@@ -199,6 +205,8 @@ const styles = StyleSheet.create({
         marginTop: 13,
         marginLeft: 16,
         marginRight: 16,
+        // height: 400,
+        // backgroundColor: 'red'
         // marginBottom:12
     }
 
