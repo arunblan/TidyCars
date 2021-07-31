@@ -40,7 +40,7 @@ export const SBox = () => {
                     />
                 </View>
             </View> */}
-            <View style={{ height: 400, width: '100%', backgroundColor: 'red' }}></View>
+            <View style={{ height: 400, width: '10  0%', backgroundColor: 'red' }}></View>
         </SkeletonPlaceholder>
     )
     // } else {
