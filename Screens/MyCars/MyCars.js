@@ -50,7 +50,7 @@ export default class MyCars extends Component {
             <View style={styles.container}>
 
                 <Text style={[FontStyle.ag24Bold, { marginTop: 54, marginLeft: 16 }]}>My Cars</Text>
-                <SBox />
+                {/* <SBox /> */}
 
                 {/* <BookedWashView /> */}
                 <View style={{ flex: 1, }}>

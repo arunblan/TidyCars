@@ -6,6 +6,7 @@ import { StackActions, NavigationActions } from 'react-navigation';
 import FontStyle from '../../../Compoents/FontStyle';
 import CrevedNav from '../../../Compoents/CravedNavDesign';
 import AddressCell from './AddressStyleCell';
+import { SSelectAddress } from '../../../Compoents/SkeletonView';
 
 export default class Address extends Component {
 
@@ -19,13 +20,22 @@ export default class Address extends Component {
                 { id: 2, Type: 'Office', StreetName: 'Hill Top', BuildingName: 'Skyline', PhoneNumber: '+919539820823' },
             ],
             serviceTypeId: null,
-            washingMethodId: null
+            washingMethodId: null,
+            isLoading: true
 
         }
     }
 
     componentDidMount = () => {
+
+        let timer = setTimeout(() => {
+            // console.log('dfsdfsduyfiusuydfiouysdiuyfoydsoiufyod')
+            this.isLoadingControl(false)
+
+        }, 5000)
+
     }
+
 
     backNavigation = () => {
         // alert('s')
@@ -40,6 +50,9 @@ export default class Address extends Component {
         this.props.navigation.navigate("bookSummary")
     }
 
+    isLoadingControl = () => {
+        this.setState({ isLoading: false })
+    }
     // selectStreet
 
 
@@ -60,17 +73,27 @@ export default class Address extends Component {
                         // onPress={this.addAddressPage}
                         >
                             {this.state.addressList.map((item) => {
-                                return (
-                                    <AddressCell
-                                        residenceType={item.Type}
-                                        buildingName={item.BuildingName}
-                                        streetName={item.StreetName}
-                                        phoneNumber={item.PhoneNumber}
-                                        showRightArrow={true}
-                                        addressOnPress={this.summaryPage}
 
-                                    />
-                                )
+                                if (this.state.isLoading) {
+                                    return (
+                                        <SSelectAddress />
+                                    )
+                                } else {
+                                    return (
+
+
+                                        <AddressCell
+                                            residenceType={item.Type}
+                                            buildingName={item.BuildingName}
+                                            streetName={item.StreetName}
+                                            phoneNumber={item.PhoneNumber}
+                                            showRightArrow={true}
+                                            addressOnPress={this.summaryPage}
+
+                                        />
+                                    )
+                                }
+
 
                             })}
 

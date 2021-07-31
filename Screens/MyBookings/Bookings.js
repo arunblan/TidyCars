@@ -5,12 +5,29 @@ import { color } from 'react-native-reanimated';
 import { StackActions, NavigationActions } from 'react-navigation';
 import FontStyle from '../../Compoents/FontStyle';
 import BookedWashView from './BookedWashCell'
+import { SCircle, SaddOns, SBookings } from '../../Compoents/SkeletonView';
+
 export default class BookingSummary extends Component {
 
 
+    constructor() {
+        super()
+        this.state = {
 
+            isLoading: true
+
+        }
+    }
 
     componentDidMount = () => {
+        let timer = setTimeout(() => {
+            // console.log('dfsdfsduyfiusuydfiouysdiuyfoydsoiufyod')
+            this.isLoadingControl(false)
+
+        }, 3000)
+    }
+    isLoadingControl = () => {
+        this.setState({ isLoading: false })
     }
 
     backNavigation = () => {
@@ -36,7 +53,8 @@ export default class BookingSummary extends Component {
                 <TouchableOpacity style={{ marginLeft: 16, marginRight: 16, marginTop: 24, backgroundColor: '#ffff', borderRadius: 16 }}
                     onPress={this.bookingDetailsPage}
                 >
-                    <BookedWashView />
+                    {this.state.isLoading ? <SBookings /> : <BookedWashView />}
+
 
                 </TouchableOpacity>
             </View >

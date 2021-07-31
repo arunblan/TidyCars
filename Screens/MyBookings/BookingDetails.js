@@ -10,6 +10,8 @@ import OrderSummery from '../ServiceOptions/SelectTimeSlot/OrderSummeryView';
 import AddressCell from '../ServiceOptions/AddAddress/AddressStyleCell'
 import RecieptView from '../../Compoents/Reciept'
 import CancellationPopUp from './CancellationPopUp'
+import { SSelectCar, SEditAddress, SReciept, SEditTimeSlots } from '../../Compoents/SkeletonView';
+
 // import SearchView from '../../../Compoents/SearchView';
 // import OrderSummery from './OrderSummeryView'
 export default class BookingSummary extends Component {
@@ -19,12 +21,21 @@ export default class BookingSummary extends Component {
         super()
         this.state = {
             cancelPopUp: false,
-
+            isLoading: true
 
         }
     }
 
     componentDidMount = () => {
+        let timer = setTimeout(() => {
+            // console.log('dfsdfsduyfiusuydfiouysdiuyfoydsoiufyod')
+            this.isLoadingControl(false)
+
+        }, 3000)
+    }
+
+    isLoadingControl = () => {
+        this.setState({ isLoading: false })
     }
 
     backNavigation = () => {
@@ -92,13 +103,11 @@ export default class BookingSummary extends Component {
                         <View style={{ height: 116, marginLeft: 16, marginRight: 16, marginTop: 24, backgroundColor: '#ffff', borderRadius: 16 }}
                         // onPress={this.selectAddressPage}
                         >
-                            <ChooseCar
-
-                            />
+                            {this.state.isLoading ? <SSelectCar /> : <ChooseCar />}
                         </View>
                         <Text style={[styles.subTittle, FontStyle.ag16Medium]}>Address</Text>
                         <View style={{ marginTop: 0, marginRight: 16, marginLeft: 16 }}>
-                            <AddressCell
+                            {this.state.isLoading ? <SEditAddress /> : <AddressCell
                                 residenceType={"item.Type"}
                                 buildingName={'item.BuildingName'}
                                 streetName={'item.StreetName'}
@@ -107,10 +116,12 @@ export default class BookingSummary extends Component {
 
                                 editOnPress={this.selectAddressPage}
                             // addressOnPress={this.summaryPage}
-                            />
+                            />}
+
                         </View>
                         <Text style={[styles.subTittle, FontStyle.ag16Medium]}>Slot</Text>
-                        <View style={{ marginLeft: 16, marginRight: 16, marginTop: 14, height: 50, borderRadius: 16, backgroundColor: '#ffff', flexDirection: 'row', }}>
+                        {this.state.isLoading ? <SEditTimeSlots /> : <View style={{ marginLeft: 16, marginRight: 16, marginTop: 14, height: 50, borderRadius: 16, backgroundColor: '#ffff', flexDirection: 'row', }}>
+
                             <View style={{ flex: 1, alignItems: 'center', flexDirection: 'row', borderTopLeftRadius: 16, borderBottomLeftRadius: 16 }}>
                                 <Image
                                     style={{ width: 24, height: 24, marginLeft: 8 }}
@@ -131,7 +142,8 @@ export default class BookingSummary extends Component {
 
                                 </View>
                             </View>
-                        </View>
+                        </View>}
+
 
 
 
@@ -141,7 +153,8 @@ export default class BookingSummary extends Component {
                         {/* <OrderSummery
                             timeView={true}
                         /> */}
-                        <RecieptView />
+                        {this.state.isLoading ? <SReciept /> : <RecieptView />}
+
 
                     </View>
                     <View style={{ marginTop: 0, marginBottom: 25, marginLeft: 16, marginRight: 16, borderRadius: 16, padding: 16, borderStyle: 'dashed', borderColor: '#D4D7DE', borderWidth: 1 }}

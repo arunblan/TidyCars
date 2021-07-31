@@ -8,6 +8,7 @@ import CrevedNav from '../../../Compoents/CravedNavDesign';
 import SearchView from '../../../Compoents/SearchView';
 import TimeSlotView from './TimeSlotViewCell'
 import { bounce } from 'react-native/Libraries/Animated/Easing';
+import { STimeSlots } from '../../../Compoents/SkeletonView';
 export default class SelectTimeSlot extends Component {
 
 
@@ -23,11 +24,17 @@ export default class SelectTimeSlot extends Component {
                 { id: 5, time: '12:00 AM', Active: false },
                 { id: 6, time: '12:20 AM', Active: false },
             ],
-            selectTimeSlotId: null
+            selectTimeSlotId: null,
+            isLoading: true
         }
     }
 
     componentDidMount = () => {
+        let time = setTimeout(() => {
+            // console.log('dfsdfsduyfiusuydfiouysdiuyfoydsoiufyod')
+            this.isLoadingControl(false)
+
+        }, 5000)
     }
 
     backNavigation = () => {
@@ -43,7 +50,9 @@ export default class SelectTimeSlot extends Component {
         console.log(this.state.availabletimeSlots)
         this.setState({ selectTimeSlotId: id })
     }
-
+    isLoadingControl = () => {
+        this.setState({ isLoading: false })
+    }
 
 
     render() {
@@ -78,9 +87,16 @@ export default class SelectTimeSlot extends Component {
                         <TimeSlotView />
                         <TimeSlotView /> */}
                         {this.state.availabletimeSlots.map((item) => {
-                            return (
-                                <TimeSlotView time={item.time} Active={this.state.selectTimeSlotId == item.id} timeOnPress={() => this.onTimePress(item.id)} />
-                            )
+                            if (this.state.isLoading) {
+                                return (
+                                    <STimeSlots />
+                                )
+                            } else {
+                                return (
+                                    <TimeSlotView time={item.time} Active={this.state.selectTimeSlotId == item.id} timeOnPress={() => this.onTimePress(item.id)} />
+                                )
+                            }
+
 
                         })}
                     </View>

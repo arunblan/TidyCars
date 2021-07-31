@@ -12,6 +12,8 @@ import RecieptView from '../../../Compoents/Reciept'
 // import CancellationPopUp from './CancellationPopUp'
 // import SearchView from '../../../Compoents/SearchView';
 // import OrderSummery from './OrderSummeryView'
+import { SSelectCar, SEditAddress, SReciept, SEditTimeSlots } from '../../../Compoents/SkeletonView';
+
 import RateingStars from '../../../Compoents/RateingStars'
 export default class HistoryDetails extends Component {
 
@@ -20,12 +22,21 @@ export default class HistoryDetails extends Component {
         super()
         this.state = {
             cancelPopUp: false,
-
+            isLoading: true
 
         }
     }
 
     componentDidMount = () => {
+        let timer = setTimeout(() => {
+            // console.log('dfsdfsduyfiusuydfiouysdiuyfoydsoiufyod')
+            this.isLoadingControl(false)
+
+        }, 3000)
+    }
+
+    isLoadingControl = () => {
+        this.setState({ isLoading: false })
     }
 
     backNavigation = () => {
@@ -87,9 +98,7 @@ export default class HistoryDetails extends Component {
                         <View style={{ height: 116, marginLeft: 16, marginRight: 16, marginTop: 24, backgroundColor: '#ffff', borderRadius: 16 }}
                         // onPress={this.selectAddressPage}
                         >
-                            <ChooseCar
-
-                            />
+                            {this.state.isLoading ? <SSelectCar /> : <ChooseCar />}
                         </View>
                         <View style={{ marginLeft: 16, marginTop: 21, marginRight: 16, marginBottom: 0, flexDirection: 'row', backgroundColor: '#ffff', height: 57, alignItems: 'center', paddingRight: 20, paddingLeft: 20, borderRadius: 16 }}>
                             <View style={[{ height: 32, flex: 0.7, justifyContent: 'center' }]}>
@@ -101,7 +110,7 @@ export default class HistoryDetails extends Component {
                         </View>
                         <Text style={[styles.subTittle, FontStyle.ag16Medium]}>Address</Text>
                         <View style={{ marginTop: 0, marginRight: 16, marginLeft: 16 }}>
-                            <AddressCell
+                            {this.state.isLoading ? <SEditAddress /> : <AddressCell
                                 residenceType={"item.Type"}
                                 buildingName={'item.BuildingName'}
                                 streetName={'item.StreetName'}
@@ -110,10 +119,11 @@ export default class HistoryDetails extends Component {
 
                                 editOnPress={this.selectAddressPage}
                             // addressOnPress={this.summaryPage}
-                            />
+                            />}
+
                         </View>
                         <Text style={[styles.subTittle, FontStyle.ag16Medium]}>Slot</Text>
-                        <View style={{ marginLeft: 16, marginRight: 16, marginTop: 14, height: 50, borderRadius: 16, backgroundColor: '#ffff', flexDirection: 'row', }}>
+                        {this.state.isLoading ? <SEditTimeSlots /> : <View style={{ marginLeft: 16, marginRight: 16, marginTop: 14, height: 50, borderRadius: 16, backgroundColor: '#ffff', flexDirection: 'row', }}>
                             <View style={{ flex: 1, alignItems: 'center', flexDirection: 'row', borderTopLeftRadius: 16, borderBottomLeftRadius: 16 }}>
                                 <Image
                                     style={{ width: 24, height: 24, marginLeft: 8 }}
@@ -134,17 +144,14 @@ export default class HistoryDetails extends Component {
 
                                 </View>
                             </View>
-                        </View>
-
-
-
+                        </View>}
 
                     </View>
                     <View style={{ flex: 1, }}>
                         {/* <OrderSummery
                             timeView={true}
                         /> */}
-                        <RecieptView />
+                        {this.state.isLoading ? <SReciept /> : <RecieptView />}
 
                     </View>
 

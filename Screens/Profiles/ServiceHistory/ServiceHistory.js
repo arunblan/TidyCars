@@ -9,13 +9,30 @@ import CrevedNav from '../../../Compoents/CravedNavDesign';
 // import OrderSummery from '../SelectTimeSlot/OrderSummeryView';
 // import SearchView from '../../../Compoents/SearchView';
 // import OrderSummery from './OrderSummeryView'
+import { SBookings } from '../../../Compoents/SkeletonView';
+
 import ServiceHistoryCells from './ServiceHistoryCell'
 export default class ServiceHistory extends Component {
 
+    constructor() {
+        super()
+        this.state = {
 
+            isLoading: true
 
+        }
+    }
+
+    isLoadingControl = () => {
+        this.setState({ isLoading: false })
+    }
 
     componentDidMount = () => {
+        let timer = setTimeout(() => {
+            // console.log('dfsdfsduyfiusuydfiouysdiuyfoydsoiufyod')
+            this.isLoadingControl(false)
+
+        }, 3000)
     }
 
     backNavigation = () => {
@@ -46,14 +63,17 @@ export default class ServiceHistory extends Component {
                         small={true}
                     />
                     <View style={{ marginTop: 24, marginLeft: 16, marginRight: 16, }}>
-                        <ServiceHistoryCells
+                        {this.state.isLoading ? <SBookings /> : <ServiceHistoryCells
                             withRateing={false}
                             cellOnPress={this.historyDetailsPage}
-                        />
-                        <ServiceHistoryCells
+                        />}
+
+                        {this.state.isLoading ? <SBookings /> : <ServiceHistoryCells
                             withRateing={true}
                             cellOnPress={this.historyDetailsPage}
-                        />
+                        />}
+
+
                     </View>
 
                 </ScrollView>

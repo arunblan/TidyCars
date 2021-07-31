@@ -7,25 +7,33 @@ import FontStyle from '../../Compoents/FontStyle';
 import CrevedNav from '../../Compoents/CravedNavDesign';
 import CouponsCell from './CouponsCell'
 import CouponsSearch from './CouponsSearchCell'
+// import { SSelectCar } from '../../Compoents/SkeletonView';
+
 export default class Coupons extends Component {
 
 
-    // constructor() {
-    //     super()
-    //     this.state = {
+    constructor() {
+        super()
+        this.state = {
 
-    //         availabletimeSlots: [
-    //             { id: 1, time: '10:00 AM', Active: false },
-    //             { id: 2, time: '10:30 AM', Active: false },
-    //             { id: 3, time: '11:00 AM', Active: false },
-    //             { id: 4, time: '11:20 AM', Active: false },
-    //             { id: 5, time: '12:00 AM', Active: false },
-    //             { id: 6, time: '12:20 AM', Active: false },
-    //         ],
-    //         selectTimeSlotId: null
-    //     }
-    // }
+            isLoading: true
 
+        }
+    }
+
+
+    componentDidMount = () => {
+        let timer = setTimeout(() => {
+            // console.log('dfsdfsduyfiusuydfiouysdiuyfoydsoiufyod')
+            this.isLoadingControl(false)
+
+        }, 3000)
+    }
+
+
+    isLoadingControl = () => {
+        this.setState({ isLoading: false })
+    }
     componentDidMount = () => {
     }
 

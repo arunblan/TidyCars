@@ -87,7 +87,7 @@ export default class AllowYourLocation extends Component {
 
                                 <View style={{}}>
                                     <Image style={{ height: 54, width: 101 }}
-                                        source={require('../../Assets/Images/DummyCars/3.png')}
+                                        source={require('../../Assets/Images/DummyCars/2.png')}
                                     />
                                 </View>
 

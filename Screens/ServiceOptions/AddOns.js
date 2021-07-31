@@ -12,7 +12,7 @@ export default function AddOns({ Tittle, amount, addOnPress, Active, viewDetails
                 onPress={addOnPress}
                 style={[styles.bgView]}>
                 {/* <SAddsOns /> */}
-                <SaddOns />
+                {/* <SaddOns /> */}
                 <View style={[styles.topView]}>
 
                     <Image
