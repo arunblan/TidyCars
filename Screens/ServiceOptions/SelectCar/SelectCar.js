@@ -28,7 +28,7 @@ export default class SelectCar extends Component {
             // console.log('dfsdfsduyfiusuydfiouysdiuyfoydsoiufyod')
             this.isLoadingControl(false)
 
-        }, 3000)
+        }, 1000)
     }
 
     backNavigation = () => {
@@ -62,7 +62,7 @@ export default class SelectCar extends Component {
                     />
                     <View style={{ flex: 1, }}>
                         <Text style={[styles.subTittle, FontStyle.ag16Medium]}>Choose Your Car</Text>
-                        <TouchableOpacity style={{ height: 116, marginLeft: 16, marginRight: 16, marginTop: 24, backgroundColor: '#ffff', borderRadius: 16 }}
+                        <TouchableOpacity style={{ height: 116, marginLeft: 8, marginRight: 16, marginTop: 24, backgroundColor: '#ffff', borderRadius: 16 }}
                             onPress={this.selectAddressPage}
                         >
                             {this.state.isLoading ? <SSelectCar /> : <ChooseCar

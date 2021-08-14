@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, StyleSheet, Button, ScrollView, Modal } from 'react-native';
+import { View, Text, Platform, TextInput, Image, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, StyleSheet, Button, ScrollView, Modal } from 'react-native';
 import { color } from 'react-native-reanimated';
 // import FontStyle from '../../Compoents/FontStyle';
 import { StackActions, NavigationActions } from 'react-navigation';
@@ -31,7 +31,7 @@ export default class BookingSummary extends Component {
             // console.log('dfsdfsduyfiusuydfiouysdiuyfoydsoiufyod')
             this.isLoadingControl(false)
 
-        }, 3000)
+        }, 1000)
     }
 
     isLoadingControl = () => {
@@ -76,7 +76,7 @@ export default class BookingSummary extends Component {
                     hideCancelPopUp={this.hideCancelPopUp}
                 />
                 <View
-                    style={{ marginTop: 52, marginLeft: 16, marginRight: 18, height: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+                    style={{ marginTop: Platform.OS == 'ios' ? 52 : 20, marginLeft: 16, marginRight: 18, height: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
                 >
 
                     <TouchableOpacity
@@ -108,10 +108,10 @@ export default class BookingSummary extends Component {
                         <Text style={[styles.subTittle, FontStyle.ag16Medium]}>Address</Text>
                         <View style={{ marginTop: 0, marginRight: 16, marginLeft: 16 }}>
                             {this.state.isLoading ? <SEditAddress /> : <AddressCell
-                                residenceType={"item.Type"}
-                                buildingName={'item.BuildingName'}
-                                streetName={'item.StreetName'}
-                                phoneNumber={'item.PhoneNumber'}
+                                residenceType={"Home"}
+                                buildingName={'Silver Plaza'}
+                                streetName={'MG Road'}
+                                phoneNumber={'+919539820823'}
                                 removeHideButton={true}
 
                                 editOnPress={this.selectAddressPage}

@@ -24,7 +24,7 @@ export default class MyCars extends Component {
         let hghj = setTimeout(() => {
 
             { this.isLoadingControl() }
-        }, 5000)
+        }, 1000)
     }
 
     backNavigation = () => {
@@ -59,7 +59,7 @@ export default class MyCars extends Component {
 
 
                         <Image
-                            style={{ height: 220, width: 191, }}
+                            style={{ height: 220, width: 191, resizeMode: 'contain' }}
                             source={require('../../Assets/Images/MyCarEmptyTemp.png')}
                         >
 

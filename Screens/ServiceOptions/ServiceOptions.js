@@ -44,23 +44,11 @@ export default class ServiceOptions extends Component {
             // console.log('dfsdfsduyfiusuydfiouysdiuyfoydsoiufyod')
             this.isLoadingControl(false)
 
-        }, 3000)
+        }, 1000)
     }
 
 
     serviceTypeButton = (id) => {
-        // for multiple select 
-        // alert(id)
-        // let clicked = this.state.serviceType.filter(element => {
-        //     if (element.id == id) {
-        //         element.active = true
-        //     }
-        //     return element
-
-        // });
-        // this.setState({ serviceType: clicked })
-        // console.log(clicked)
-
         this.setState({ serviceTypeId: id })
     }
 
@@ -213,3 +201,6 @@ const styles = StyleSheet.create({
 
 }
 )
+
+//sudo killall usbd
+//sudo killall -STOP -c usbd

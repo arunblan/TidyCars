@@ -9,16 +9,14 @@ import ChooseCar from '../ServiceOptions/SelectCar/ChooseCarCell';
 import OrderSummery from '../ServiceOptions/SelectTimeSlot/OrderSummeryView';
 import AddressCell from '../ServiceOptions/AddAddress/AddressStyleCell'
 import RecieptView from '../../Compoents/Reciept'
+import LottieView from 'lottie-react-native'
+
 // import SearchView from '../../../Compoents/SearchView';
 // import OrderSummery from './OrderSummeryView'
 export default class BookingSummary extends Component {
 
-
-
-
     componentDidMount = () => {
     }
-
     backNavigation = () => {
         // alert('s')
         this.props.navigation.goBack()
@@ -32,8 +30,6 @@ export default class BookingSummary extends Component {
         this.props.navigation.navigate("Home")
     }
 
-
-
     render() {
 
         return (
@@ -41,12 +37,9 @@ export default class BookingSummary extends Component {
                 onPress={this.HomePage}
             >
                 <View style={{ height: 200, width: 200, backgroundColor: '#fff' }}>
-                    <Image
-                        style={{ width: 200, height: 200 }}
-                        source={require('../../Assets/Images/OrderCompleteTick.png')}
+                    <LottieView source={require('../../Assets/Animation/Completed.json')} autoPlay loop style={{ width: 200, height: 200, backgroundColor: '#552EDF' }}
                     />
                 </View>
-
             </TouchableOpacity >
         )
     }

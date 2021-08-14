@@ -39,7 +39,7 @@ export default class WashMethodDetails extends Component {
                                 style={styles.backBgView}
                             >
                                 <TouchableOpacity
-                                    style={{ justifyContent: 'center', alignItems: 'center' }}
+                                    style={{ justifyContent: 'center', alignItems: 'center', width: 80, height: 80 }}
                                     onPress={this.backNavigation}
                                 >
                                     <Image

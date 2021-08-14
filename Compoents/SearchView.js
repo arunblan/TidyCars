@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, Image, TextInput } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View, Image, TextInput, Platform } from 'react-native';
 import FontStyle from './FontStyle';
 
 export default function searchView({ navTittle, navHeight }) {
@@ -15,10 +15,10 @@ export default function searchView({ navTittle, navHeight }) {
                 </TouchableOpacity>
             </View>
             {/* <Text style={[styles.headingText, FontStyle.ag16Semibold, { color: '#ffff', textAlign: 'center', flex: 1, marginLeft: -28 }]}>{navTittle ?? 'Hatch Back'}</Text> */}
-            <View style={{ width: '88%', backgroundColor: '#ffff', height: 27, }}>
+            <View style={{ width: '88%', backgroundColor: '#ffff', height: 45, marginTop: Platform.OS == 'ios' ? 3 : 6 }}>
                 <TextInput
-                    value='Westhills, Calicut'
-
+                    // value='Westhills, Calicut'
+                    alignItems='center'
                     placeholder='Enter your loaction'
                     style={[styles.textInputStyle, FontStyle.ag14Reguler]}>
 
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffff',
         marginLeft: 16,
         marginRight: 16,
-        marginTop: -30,
+        marginTop: Platform.OS == 'ios' ? -30 : -25,
         // justifyContent: 'center',
         borderRadius: 16,
         paddingTop: 15,
@@ -70,7 +70,8 @@ const styles = StyleSheet.create({
     backImageView: {
         height: 24,
         width: 24,
-        resizeMode: 'contain'
+        resizeMode: 'contain',
+
     },
     arrowDownImageView: {
         height: 9,

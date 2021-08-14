@@ -51,7 +51,7 @@ export default function RecieptView({ addOnTIttle, list, timeView }) {
             <View style={{ flex: 0.5, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', marginTop: 12, marginBottom: 16 }}>
                 <Text style={[FontStyle.ag14Reguler, { marginLeft: 16 }]}>Total</Text>
                 <View style={{ width: 88, height: 46, backgroundColor: '#EAECF4', marginRight: 16, justifyContent: 'center', alignItems: 'center', borderRadius: 12 }}>
-                    <Text style={[FontStyle.ag18Semibold]}>$1200</Text>
+                    <Text style={[FontStyle.ag18Semibold]}>₹1200</Text>
                 </View>
             </View>
             {/* </View> */}

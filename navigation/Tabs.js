@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, Text, Button, StyleSheet, Image } from 'react-native';
+import { View, Text, Button, StyleSheet, Image, Platform } from 'react-native';
 import React from 'react';
 
 import HomeScreen from '../Screens/Home/Home';
@@ -16,14 +16,14 @@ const Tabs = () => {
             tabBarOptions={{
                 showLabel: false,
                 style: {
-                    height: 80
+                    height: Platform.OS == 'ios' ? 80 : 50
                 }
             }}
         >
             <Tab.Screen name='Home' component={HomeScreen}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <View style={{ alignItems: 'center', justifyContent: 'center', top: 10, }}>
+                        <View style={{ alignItems: 'center', justifyContent: 'center', top: 0, }}>
                             <Image
                                 source={require('../Assets/Images/TabBarIcon/HomeIcons.png')}
                                 resizeMode='contain'
@@ -42,7 +42,7 @@ const Tabs = () => {
             <Tab.Screen name='Find' component={CalanderScreen}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <View style={{ alignItems: 'center', justifyContent: 'center', top: 10, }}>
+                        <View style={{ alignItems: 'center', justifyContent: 'center', top: 0, }}>
                             <Image
                                 source={require('../Assets/Images/TabBarIcon/CalendarIcon.png')}
                                 resizeMode='contain'
@@ -60,7 +60,7 @@ const Tabs = () => {
             <Tab.Screen name='Chat' component={CarScreen}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <View style={{ alignItems: 'center', justifyContent: 'center', top: 10, }}>
+                        <View style={{ alignItems: 'center', justifyContent: 'center', top: 0, }}>
                             <Image
                                 source={require('../Assets/Images/TabBarIcon/CarIcon.png')}
                                 resizeMode='contain'
@@ -78,7 +78,7 @@ const Tabs = () => {
             <Tab.Screen name='Post' component={ProfileScreen}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <View style={{ alignItems: 'center', justifyContent: 'center', top: 10, }}>
+                        <View style={{ alignItems: 'center', justifyContent: 'center', top: 0, }}>
                             <Image
                                 source={require('../Assets/Images/TabBarIcon/ProfileIcon.png')}
                                 resizeMode='contain'

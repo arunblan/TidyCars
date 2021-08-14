@@ -27,7 +27,7 @@ export default class Coupons extends Component {
             // console.log('dfsdfsduyfiusuydfiouysdiuyfoydsoiufyod')
             this.isLoadingControl(false)
 
-        }, 3000)
+        }, 1000)
     }
 
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    View, Text, Button, Input, Image, StyleSheet, TextInput, Keyboard, TouchableWithoutFeedback,
+    View, Text, Button, Input, Image, StyleSheet, TextInput, Keyboard, TouchableWithoutFeedback, Platform,
 
     KeyboardAvoidingView, Dimensions
 } from 'react-native';
@@ -18,7 +18,7 @@ export default class Login extends Component {
     render() {
         return (
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-                <KeyboardAvoidingView style={{ flex: 1, }} behavior='padding'>
+                <KeyboardAvoidingView style={{ flex: 1, }} behavior={Platform.OS === 'ios' ? 'padding' : null} >
                     <View style={Styles.bgView}>
 
                         <View style={Styles.bgView2}>
@@ -72,7 +72,7 @@ const Styles = StyleSheet.create({
         backgroundColor: '#623CEA',
     },
     blueButtonStyle: {
-        marginBottom: 44
+        marginBottom: Platform.OS == 'ios' ? 44 : 0
     },
     inputStyle: {
 

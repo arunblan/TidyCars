@@ -1,7 +1,7 @@
 package com.tidycar;
 
 import com.facebook.react.ReactActivity;
-
+// react-native-splash-screen >= 0.3.1
 public class MainActivity extends ReactActivity {
 
   /**
@@ -12,4 +12,6 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "TidyCar";
   }
+
+
 }

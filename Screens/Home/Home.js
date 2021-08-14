@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, StyleSheet, Button, ScrollView, Dimensions } from 'react-native';
+import { View, StatusBar, Text, Platform, TextInput, Image, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, StyleSheet, Button, ScrollView, Dimensions } from 'react-native';
 import { color } from 'react-native-reanimated';
 import FontStyle from '../../Compoents/FontStyle';
 import LottieView from 'lottie-react-native'
+import SwipeBanner from '../../Compoents/swiperbanner'
 
 export default class AllowYourLocation extends Component {
 
@@ -25,15 +26,17 @@ export default class AllowYourLocation extends Component {
     }
 
     componentDidMount = () => {
+        
     }
     notificationPage = () => {
         this.props.navigation.navigate("notification")
     }
     render() {
-
+        
 
 
         return (
+            
             <View style={{ flex: 1, backgroundColor: '#EAECF4' }}>
                 <ScrollView style={{ flex: 1, }}>
                     <View style={styles.viewContainer}>
@@ -57,16 +60,22 @@ export default class AllowYourLocation extends Component {
                         </TouchableOpacity>
 
                         <View style={styles.bannerBgView}>
-                            <Image
-                                source={require('../../Assets/Images/HomeBanner.png')}
-                                style={styles.bannerImageView}
+                            <SwipeBanner
+                                list={[{
+                                    image_url:require('../../Assets/Images/HomeBanner.png')
+                                },
+                                {
+                                    image_url:require('../../Assets/Images/carWash1.jpeg')
+                                },
+                                {
+                                    image_url:require('../../Assets/Images/carWash2.jpeg')
+                                }]}
                             />
                         </View>
                         <Text style={[styles.sectionTittle, FontStyle.ag16Medium]}> Choose Vehicle</Text>
                         <View style={styles.chooseVehicleBgView}>
                             {this.state.vehicleList.map((it, i) => {
                                 return (
-                                    // <TouchableOpacity onPress={() => { alert(it.name) }}>
                                     <TouchableOpacity onPress={() => { this.chooseVehicleNavigation() }}>
                                         <View style={[styles.chooseVehicleCard, { marginBottom: i > 2 ? 0 : 16 }]}>
                                             <Image style={styles.chooseVehicleCardImage}
@@ -122,12 +131,16 @@ export default class AllowYourLocation extends Component {
                         </View>
                         <Text style={[styles.sectionTittle, FontStyle.ag16Medium]}>Free Wash</Text>
                         <View style={styles.freeWashBgView}>
+
                             <View style={styles.freeWashProgess}>
-                                <LottieView source={require('../../Assets/Animation/Bubble.json')} autoPlay loop style={{ flex: 1, resizeMode: 'stretch', borderRadius: !6 }}
+                            <LottieView source={require('../../Assets/Animation/Bubble.json')} autoPlay loop style={{ flex: 1, position: 'absolute', bottom: 0, resizeMode: 'stretch', height: '100%',width:'100%' }}
 
-                                />
+                            />
 
-                                <Text style={[styles.freeWashProgressText, FontStyle.ag14Semibold, { color: '#ffff' }]}>12/20</Text>
+
+                                <Text style={[styles.freeWashProgressText, FontStyle.ag14Semibold, { color: '#ffff' }]}>12/20
+                                
+                                </Text>
                             </View>
                         </View>
                     </View>
@@ -143,7 +156,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginLeft: 16,
-        marginTop: 51
+        marginTop: Platform.OS == 'ios' ? 51:21
     },
     viewContainer: {
         flex: 1,
@@ -162,7 +175,7 @@ const styles = StyleSheet.create({
     },
     notificationBgView: {
         right: 16,
-        top: 57,
+        top: Platform.OS == 'ios' ? 57:21,
         backgroundColor: '#ffff',
         width: 48,
         height: 48,

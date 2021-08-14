@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, StyleSheet, Button, ScrollView } from 'react-native';
+import { View, Text, Platform, TextInput, Image, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, StyleSheet, Button, ScrollView } from 'react-native';
 import { color } from 'react-native-reanimated';
 // import FontStyle from '../../Compoents/FontStyle';
 import { StackActions, NavigationActions } from 'react-navigation';
@@ -24,7 +24,7 @@ export default class BookingSummary extends Component {
             // console.log('dfsdfsduyfiusuydfiouysdiuyfoydsoiufyod')
             this.isLoadingControl(false)
 
-        }, 3000)
+        }, 1000)
     }
     isLoadingControl = () => {
         this.setState({ isLoading: false })
@@ -49,13 +49,11 @@ export default class BookingSummary extends Component {
 
         return (
             <View style={styles.container}>
-                <Text style={[FontStyle.ag24Bold, { marginTop: 54, marginLeft: 16 }]}>My Bookings</Text>
+                <Text style={[FontStyle.ag24Bold, { marginTop: Platform.OS == 'ios' ? 54 : 20, marginLeft: 16 }]}>My Bookings</Text>
                 <TouchableOpacity style={{ marginLeft: 16, marginRight: 16, marginTop: 24, backgroundColor: '#ffff', borderRadius: 16 }}
                     onPress={this.bookingDetailsPage}
                 >
                     {this.state.isLoading ? <SBookings /> : <BookedWashView />}
-
-
                 </TouchableOpacity>
             </View >
         )

@@ -28,7 +28,7 @@ export default class BookingSummary extends Component {
             // console.log('dfsdfsduyfiusuydfiouysdiuyfoydsoiufyod')
             this.isLoadingControl(false)
 
-        }, 3000)
+        }, 1000)
     }
 
     backNavigation = () => {
@@ -80,10 +80,10 @@ export default class BookingSummary extends Component {
                         <View style={{ marginTop: 0, marginRight: 16, marginLeft: 16 }}>
 
                             {this.state.isLoading ? <SEditAddress /> : <AddressCell
-                                residenceType={"item.Type"}
-                                buildingName={'item.BuildingName'}
-                                streetName={'item.StreetName'}
-                                phoneNumber={'item.PhoneNumber'}
+                                residenceType={"Home"}
+                                buildingName={'Silver Plaza'}
+                                streetName={'Mavoor Road'}
+                                phoneNumber={'+919539820823'}
                                 editMode={true}
                                 editOnPress={this.selectAddressPage}
                             // addressOnPress={this.summaryPage}
@@ -148,9 +148,7 @@ export default class BookingSummary extends Component {
                     </TouchableOpacity>
 
                 </ScrollView>
-                {/* <View style={{}}> */}
 
-                {/* </View> */}
             </View >
         )
     }

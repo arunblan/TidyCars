@@ -6,8 +6,8 @@ export default function crevedNavigation({ navTittle, navHeight, backOnPress, sm
     // #552EDF
     //552EDF
     return (
-        <View style={[styles.viewD, { height: parseInt(navHeight) ?? 120 }]} >
-            <View style={{ height: 20, flexDirection: 'row', marginLeft: 16, marginRight: 66, marginTop: small ? 20 : 0 }}>
+        <View style={[styles.viewD, { height: Platform.OS == 'ios' ? parseInt(navHeight) ?? 120 : 75 }]} >
+            <View style={{ height: 20, flexDirection: 'row', marginLeft: 16, marginRight: 66, marginTop: Platform.OS == 'ios' ? small ? 20 : 0 : small ? 0 : -22, height: 24 }}>
                 <TouchableOpacity style={[{ height: 30, width: 50 },]}
                     onPress={backOnPress}
                 >
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
         // justifyContent: 'center'
         marginLeft: 20,
         textAlign: 'center',
+        // marginBottom: 10
 
     },
     backButtonBgView: {
@@ -52,6 +53,7 @@ const styles = StyleSheet.create({
     },
     backImageView: {
         height: 16,
-        width: 8
+        width: 8,
+        marginTop: 3
     }
 })

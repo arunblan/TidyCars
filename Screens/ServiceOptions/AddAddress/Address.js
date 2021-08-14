@@ -29,10 +29,8 @@ export default class Address extends Component {
     componentDidMount = () => {
 
         let timer = setTimeout(() => {
-            // console.log('dfsdfsduyfiusuydfiouysdiuyfoydsoiufyod')
             this.isLoadingControl(false)
-
-        }, 5000)
+        }, 1000)
 
     }
 
@@ -89,7 +87,6 @@ export default class Address extends Component {
                                             phoneNumber={item.PhoneNumber}
                                             showRightArrow={true}
                                             addressOnPress={this.summaryPage}
-
                                         />
                                     )
                                 }

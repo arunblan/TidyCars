@@ -48,7 +48,7 @@ export default class AddCar extends Component {
             <View style={styles.viewContainer}>
                 <ScrollView style={{ flex: 1, }} bounces={false}>
                     <CrevedNav
-                        navTittle='Select Car'
+                        navTittle='Add Car'
                         navHeight='100'
                         backOnPress={this.backNavigation}
                         small={true}

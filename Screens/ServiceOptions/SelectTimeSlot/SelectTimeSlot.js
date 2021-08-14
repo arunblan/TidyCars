@@ -34,7 +34,7 @@ export default class SelectTimeSlot extends Component {
             // console.log('dfsdfsduyfiusuydfiouysdiuyfoydsoiufyod')
             this.isLoadingControl(false)
 
-        }, 5000)
+        }, 1000)
     }
 
     backNavigation = () => {

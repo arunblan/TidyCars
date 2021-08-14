@@ -105,7 +105,7 @@ export default class Profile extends Component {
                     </View>
 
                 </View>
-                {/* <View style={{ height: 5, backgroundColor: '#D4D7DE', marginLeft: 24, marginRight: 24, marginTop: 12 }}></View> */}
+                <View style={{ height: 5, backgroundColor: '#D4D7DE', marginLeft: 24, marginRight: 24, marginTop: 12 }}></View>
                 <View style={{ marginLeft: 28, marginRight: 24, marginTop: 32 }}>
                     <TouchableOpacity style={{ marginBottom: 10, height: 35, justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row' }}
                         onPress={this.faqPage}

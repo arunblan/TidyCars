@@ -30,7 +30,7 @@ export const SaddOns = () => {
                 <View style={{ marginLeft: 20 }}>
                     <View style={{ width: '100%', height: 20, borderRadius: 4 }} />
                     <View
-                        style={{ marginTop: 6, width: 200, height: 20, borderRadius: 4 }}
+                        style={{ marginTop: 6, width: 330, height: 20, borderRadius: 4 }}
                     />
                 </View>
             </View>
@@ -39,7 +39,7 @@ export const SaddOns = () => {
                 <View style={{ marginLeft: 20 }}>
                     <View style={{ width: '100%', height: 20, borderRadius: 4 }} />
                     <View
-                        style={{ marginTop: 6, width: 200, height: 20, borderRadius: 4 }}
+                        style={{ marginTop: 6, width: 330, height: 20, borderRadius: 4 }}
                     />
                 </View>
             </View>
@@ -48,7 +48,7 @@ export const SaddOns = () => {
                 <View style={{ marginLeft: 20 }}>
                     <View style={{ width: '100%', height: 20, borderRadius: 4 }} />
                     <View
-                        style={{ marginTop: 6, width: 200, height: 20, borderRadius: 4 }}
+                        style={{ marginTop: 6, width: 330, height: 20, borderRadius: 4 }}
                     />
                 </View>
             </View>
@@ -195,7 +195,7 @@ export const SSelectAddress = () => {
             <View style={{ borderTopRightRadius: 16, borderBottomRightRadius: 16, height: 100 }}>
                 <View style={{ height: 20, width: '90%', marginTop: 5, margin: 0 }}></View>
                 <View style={{ height: 20, width: '80%', marginTop: 5, margin: 0 }}></View>
-                <View style={{ height: 20, width: '60%', marginTop: 5, margin: 0 }}></View>
+                <View style={{ height: 20, width: '60%', marginTop: 5, margin: 0, }}></View>
             </View>
             {/* </View > */}
         </SkeletonPlaceholder>
@@ -261,7 +261,7 @@ export const SaddOn = () => {
             // console.log('dfsdfsduyfiusuydfiouysdiuyfoydsoiufyod')
             setisLoading(false)
 
-        }, 5000)
+        }, 1000)
     }
 
     useEffect(() => {

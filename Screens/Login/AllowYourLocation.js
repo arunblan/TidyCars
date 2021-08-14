@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, StyleSheet, Button } from 'react-native';
+import { View, Text, TextInput, Image, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, StyleSheet, Button, Platform } from 'react-native';
 import { color } from 'react-native-reanimated';
 import FontStyle from '../../Compoents/FontStyle';
 import { StackActions, NavigationActions } from 'react-navigation';
 import BlueButton from '../../Compoents/BlueButton';
 import LottieView from 'lottie-react-native'
+
 export default class AllowYourLocation extends Component {
 
 
@@ -44,12 +45,11 @@ export default class AllowYourLocation extends Component {
 
 
                 <View style={{ backgroundColor: '#623CEA', height: 50, width: '100%', bottom: 17, position: 'absolute', justifyContent: 'center', alignSelf: 'center' }}>
-                    <Button
-                        title='Skip'
-                        style={{ padding: 20, FontStyle: 16 }}
-                        color='#ffff'
+                    <TouchableOpacity style={{ FontStyle: 16, alignItems: 'center', justifyContent: 'center', height: 30 }}
                         onPress={() => this.props.navigation.navigate("Home")}
-                    />
+                    >
+                        <Text style={[FontStyle.ag14Medium, { color: '#ffff' }]}>Skip</Text>
+                    </TouchableOpacity>
                 </View>
 
             </View>
