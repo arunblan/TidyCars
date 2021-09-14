@@ -4,51 +4,91 @@ import { color } from 'react-native-reanimated';
 import FontStyle from '../../Compoents/FontStyle';
 import LottieView from 'lottie-react-native'
 import SwipeBanner from '../../Compoents/swiperbanner'
-
+import BranchPopup from './branchPopUp/BranchPopup';
+import { getApiCall } from '../../Src/service';
+import store from '../../Src/Store/index'
 export default class AllowYourLocation extends Component {
 
     constructor() {
         super()
         this.state = {
-            vehicleList: [
-                { id: 1, name: 'Luxury', image: require('../../Assets/Images/DummyCars/1.png') },
-                { id: 2, name: 'Hatch Back', image: require('../../Assets/Images/DummyCars/2.png') },
-                { id: 3, name: 'Sedan', image: require('../../Assets/Images/DummyCars/3.png') },
-                { id: 4, name: 'SUV', image: require('../../Assets/Images/DummyCars/4.png') },
-                { id: 5, name: 'Truck', image: require('../../Assets/Images/DummyCars/5.png') },
-                { id: 6, name: 'Bike', image: require('../../Assets/Images/DummyCars/6.png') },
-            ]
+            ContryPick: false,
+            selectedCountryCode: '+91',
+            userName: 'User',
+            freeWash: [],
+            branch: [{
+                "id": 1,
+                "branch_name": "West Hill",
+                "address_line1": "Calicut",
+            },],
+            bannerImages: [],
+            vehicle_category: [],
+            recent_wash: [],
+            selectVehicleId: '0',
+            selectedBranch: null
         }
     }
+    setSelectedCountry = (code) => {
+        this.setState({ selectedCountryCode: code })
+        console.log(this.setState.selectedCountryCode)
 
-    chooseVehicleNavigation() {
-        this.props.navigation.navigate("ServiceOptions")
+    }
+
+    hideContryPickerPopUp = (branch) => {
+        this.setState({ ContryPick: false, selectedBranch: branch })
+    }
+
+    chooseVehicleNavigation(id) {
+        this.props.navigation.navigate("ServiceOptions", { vehicleId: id })
     }
 
     componentDidMount = () => {
-        
+        this.apiCall()
     }
+
     notificationPage = () => {
         this.props.navigation.navigate("notification")
+        //9567706068
     }
+
+    apiCall = () => {
+        getApiCall({ apiUrl: '/home/1' }, (responceJson) => {
+            console.log(responceJson)
+            // alert(responceJson.data.user[0].name)
+            this.setState({ userName: responceJson.data.user[0].name })
+            this.setState({ bannerImages: responceJson.data.banners })
+            this.setState({ branch: responceJson.data.branches, selectedBranch: responceJson.data.branches[0] })
+            this.setState({ vehicle_category: responceJson.data.vehicle_category })
+        })
+    }
+
+    // getWashPrice = (id) =>{
+
+    // }
     render() {
-        
-
-
         return (
-            
+
             <View style={{ flex: 1, backgroundColor: '#EAECF4' }}>
+
                 <ScrollView style={{ flex: 1, }}>
                     <View style={styles.viewContainer}>
-                        <Text style={[styles.nameText, FontStyle.ag24Bold]}>Hi Sara</Text>
+                        <BranchPopup
+                            visible={this.state.ContryPick}
+                            hideContryPickerPopUp={this.hideContryPickerPopUp}
+                            setSelectedCountry={this.setSelectedCountry}
+                            branchs={this.state.branch}
+                        />
+                        <Text style={[styles.nameText, FontStyle.ag24Bold]}>{'Hi ' + this.state.userName}</Text>
 
-                        <View style={styles.locationBgView}>
-                            <Text style={[FontStyle.ag14Reguler]}>Westhills, Calicut</Text>
+                        <TouchableOpacity style={styles.locationBgView}
+                            onPress={() => this.setState({ ContryPick: true })}
+                        >
+                            {this.state.selectedBranch ? <Text style={[FontStyle.ag14Reguler]}>{this.state.selectedBranch.branch_name + ', ' + this.state.selectedBranch.address_line2}</Text> : <Text style={[FontStyle.ag14Reguler]}>Loading...</Text>}
                             <Image
                                 source={require('../../Assets/Images/downBlackArrow.png')}
                                 style={{ justifyContent: 'center', width: 11, height: 7, marginLeft: 7 }}
                             ></Image>
-                        </View>
+                        </TouchableOpacity>
 
                         <TouchableOpacity style={styles.notificationBgView}
                             onPress={this.notificationPage}
@@ -61,88 +101,87 @@ export default class AllowYourLocation extends Component {
 
                         <View style={styles.bannerBgView}>
                             <SwipeBanner
-                                list={[{
-                                    image_url:require('../../Assets/Images/HomeBanner.png')
-                                },
-                                {
-                                    image_url:require('../../Assets/Images/carWash1.jpeg')
-                                },
-                                {
-                                    image_url:require('../../Assets/Images/carWash2.jpeg')
-                                }]}
+                                list={this.state.bannerImages}
                             />
                         </View>
-                        <Text style={[styles.sectionTittle, FontStyle.ag16Medium]}> Choose Vehicle</Text>
-                        <View style={styles.chooseVehicleBgView}>
-                            {this.state.vehicleList.map((it, i) => {
-                                return (
-                                    <TouchableOpacity onPress={() => { this.chooseVehicleNavigation() }}>
-                                        <View style={[styles.chooseVehicleCard, { marginBottom: i > 2 ? 0 : 16 }]}>
-                                            <Image style={styles.chooseVehicleCardImage}
-                                                source={it.image}
+                        {this.state.vehicle_category && this.state.vehicle_category.length > 0 ? <>
+
+                            <Text style={[styles.sectionTittle, FontStyle.ag16Medium]}> Choose Vehicle</Text>
+                            <View style={styles.chooseVehicleBgView}>
+                                {this.state.vehicle_category.map((it, i) => {
+                                    return (
+                                        <TouchableOpacity onPress={() => { this.chooseVehicleNavigation(it.id) }}>
+                                            <View style={[styles.chooseVehicleCard, { marginBottom: i > 2 ? 0 : 16 }]}>
+                                                <Image style={styles.chooseVehicleCardImage}
+                                                    source={require('../../Assets/Images/DummyCars/1.png')}
+                                                />
+                                                <Text style={[FontStyle.ag14Semibold, styles.chooseVehicleCardText]}>{it.category}</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    )
+                                })}
+                            </View>
+
+                        </> : null}
+
+                        {this.state.recent_wash && this.state.recent_wash.length > 0 ? <>
+                            <Text style={[styles.sectionTittle, FontStyle.ag16Medium]}> Recent Wash</Text>
+                            <View style={styles.recentWashBgView}>
+                                <View style={styles.recentWashHeader}>
+                                    <Text style={[FontStyle.ag16Semibold, { color: '#ffff' }]}>{this.state.recent_wash[0].regNumber ?? 'KL 15 AB 5985'}</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row', backgroundColor: '#ffff', padding: 12, }}>
+
+                                    <View style={{}}>
+                                        <Image style={{ height: 54, width: 101 }}
+                                            source={require('../../Assets/Images/DummyCars/2.png')}
+                                        />
+                                    </View>
+
+                                    <View style={{}}>
+
+                                        <View style={styles.recentWashText}>
+                                            <Image style={styles.recentWashImg}
+                                                source={require('../../Assets/Images/GreenCheck.png')}
                                             />
-                                            <Text style={[FontStyle.ag14Semibold, styles.chooseVehicleCardText]}>{it.name}</Text>
+                                            <Text style={[FontStyle.ag14Reguler]}> Steam Wash</Text>
+
                                         </View>
+
+                                        <View style={styles.recentWashText}>
+                                            <Image style={styles.recentWashImg}
+                                                source={require('../../Assets/Images/GreenCheck.png')}
+                                            />
+                                            <Text style={[FontStyle.ag14Reguler]}> Engine Room Washing</Text>
+                                        </View>
+                                    </View>
+
+                                </View>
+                                <View style={styles.bookAgainBtnBgView}>
+                                    <TouchableOpacity>
+                                        <Text
+                                            style={[FontStyle.ag14Semibold, { color: '#552EDF' }]}>Book Again</Text>
                                     </TouchableOpacity>
-                                )
-                            })}
-                        </View>
-                        <Text style={[styles.sectionTittle, FontStyle.ag16Medium]}> Recent Wash</Text>
-                        <View style={styles.recentWashBgView}>
-                            <View style={styles.recentWashHeader}>
-                                <Text style={[FontStyle.ag16Semibold, { color: '#ffff' }]}>KL 15 AB 5985</Text>
+                                </View>
                             </View>
-                            <View style={{ flexDirection: 'row', backgroundColor: '#ffff', padding: 12, }}>
+                        </> : null}
 
-                                <View style={{}}>
-                                    <Image style={{ height: 54, width: 101 }}
-                                        source={require('../../Assets/Images/DummyCars/2.png')}
+                        {this.state.freeWash && this.state.freeWash.length > 0 ? <>
+
+                            <Text style={[styles.sectionTittle, FontStyle.ag16Medium]}>Free Wash</Text>
+                            <View style={styles.freeWashBgView}>
+
+                                <View style={styles.freeWashProgess}>
+                                    <LottieView source={require('../../Assets/Animation/Bubble.json')} autoPlay loop style={{ flex: 1, position: 'absolute', bottom: 0, resizeMode: 'stretch', height: '100%', width: '100%' }}
+
                                     />
-                                </View>
-
-                                <View style={{}}>
-
-                                    <View style={styles.recentWashText}>
-                                        <Image style={styles.recentWashImg}
-                                            source={require('../../Assets/Images/GreenCheck.png')}
-                                        />
-                                        <Text style={[FontStyle.ag14Reguler]}> Steam Wash</Text>
-
-                                    </View>
-
-                                    <View style={styles.recentWashText}>
-                                        <Image style={styles.recentWashImg}
-                                            source={require('../../Assets/Images/GreenCheck.png')}
-                                        />
-                                        <Text style={[FontStyle.ag14Reguler]}> Engine Room Washing</Text>
-
-                                    </View>
-
-
-                                </View>
-
-                            </View>
-                            <View style={styles.bookAgainBtnBgView}>
-                                <TouchableOpacity>
-                                    <Text
-                                        style={[FontStyle.ag14Semibold, { color: '#552EDF' }]}>Book Again</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <Text style={[styles.sectionTittle, FontStyle.ag16Medium]}>Free Wash</Text>
-                        <View style={styles.freeWashBgView}>
-
-                            <View style={styles.freeWashProgess}>
-                            <LottieView source={require('../../Assets/Animation/Bubble.json')} autoPlay loop style={{ flex: 1, position: 'absolute', bottom: 0, resizeMode: 'stretch', height: '100%',width:'100%' }}
-
-                            />
-
-
-                                <Text style={[styles.freeWashProgressText, FontStyle.ag14Semibold, { color: '#ffff' }]}>12/20
-                                
+                                    <Text style={[styles.freeWashProgressText, FontStyle.ag14Semibold, { color: '#ffff' }]}>12/20
                                 </Text>
+                                </View>
                             </View>
-                        </View>
+
+                        </> : null}
+
                     </View>
                 </ScrollView>
             </View>
@@ -156,7 +195,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginLeft: 16,
-        marginTop: Platform.OS == 'ios' ? 51:21
+        marginTop: Platform.OS == 'ios' ? 51 : 21
     },
     viewContainer: {
         flex: 1,
@@ -175,7 +214,7 @@ const styles = StyleSheet.create({
     },
     notificationBgView: {
         right: 16,
-        top: Platform.OS == 'ios' ? 57:21,
+        top: Platform.OS == 'ios' ? 57 : 21,
         backgroundColor: '#ffff',
         width: 48,
         height: 48,

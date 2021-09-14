@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, Text, View, Image, TextInput } from 'reac
 import { color } from 'react-native-reanimated';
 import FontStyle from '../../Compoents/FontStyle';
 
-export default function WashingMethodView({ Tittle, imageUrl, Active, imageOnPress, viewDetailsOnpress }) {
+export default function WashingMethodView({ Tittle, imageUrl, Active, imageOnPress, viewDetailsOnpress, price }) {
     // const unChcked = '../../Assets/Images/UnCheckedRound.png' 
 
     return (
@@ -33,7 +33,7 @@ export default function WashingMethodView({ Tittle, imageUrl, Active, imageOnPre
             >
                 <Text
 
-                    style={[FontStyle.ag18Semibold, { marginLeft: 10, color: '#552EDF' }]}> ₹ 400</Text>
+                    style={[FontStyle.ag18Semibold, { marginLeft: 10, color: '#552EDF' }]}> {'₹' + price}</Text>
 
                 <View style={styles.bottomViewStyle}>
                     <TouchableOpacity

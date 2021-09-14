@@ -1,10 +1,16 @@
+//8590798705
 import React, { Component } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, StyleSheet, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { color } from 'react-native-reanimated';
 import FontStyle from '../../Compoents/FontStyle';
 import { StackActions, NavigationActions } from 'react-navigation';
 import BlueButton from '../../Compoents/BlueButton';
-export default class OtpScreen extends Component {
+import alertHandler from '../../Compoents/AlertHandler';
+import auth from '@react-native-firebase/auth';
+import { connect } from 'react-redux';
+import { updateToken } from '../../Src/Actions/user';
+
+class OtpScreen extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -14,12 +20,109 @@ export default class OtpScreen extends Component {
             pin4: "",
             pin5: "",
             pin6: "",
+            authCode: null,
+            conformCode: null,
+            token: null
 
         }
     }
 
     componentDidMount = () => {
         this.refs.pin1ref.focus()
+
+        // alert('Otp --------' + this.props.route.params.authConformation)
+        this.callAuth()
+
+        if (!this.props.route.params.newUserFlag) {
+            // alert(this.props.route.params.token)
+            this.props.updateToken(this.props.route.params.token)
+        }
+        //8590798705
+        callAuth = async () => {
+            try {
+                const conformation = await auth().signInWithPhoneNumber('+91' + thisprops.route.params.mobileNumber)
+                alert('sucess--------' + JSON.stringify(conformation))
+                this.setState({ authCode: conformation }, () => {
+                    // this.props.navigation.navigate("OtpScreen", { mobile: this.state.mobileNumber, authCode: conformation, newUserFlag: this.state.newUserFlag, token: this.state.token })
+                })
+
+                // const responce = await confirm.
+            } catch (e) {
+                alert(JSON.stringify(e) + 'eerror')
+            }
+        }
+
+        this.setState({ authCode: this.props.route.params.authCode })
+
+        // if (this.props.route.params) {
+        //     console.log(this.props.route.params.mobile)
+        //     // alert(JSON.stringify(this.props.route.params.authCode))
+        //     // if (this.props.route.params.status) {
+        //     //     alert('this.props.route.params.status')
+        //     // this.navigateToHomeScreen()
+        //     // }
+        // }
+
+    }
+
+    codeConformation = async () => {
+        // alert(this.state.conformCode + this.state.authCode)
+        try {
+            if (this.state.conformCode == null || this.state.authCode == null) {
+                alertHandler({
+                    message: 'Firebase token or Auth missing',
+                    okTxt: 'Try again !',
+                    onPressOk: () => { this.props.navigation.navigate("LoginScreen") }
+                })
+            } else {
+                const authCodes = this.state.authCode
+                const responce = await authCodes.confirm(this.state.conformCode);
+                // alert(JSON.stringify(responce))
+                if (this.props.route.params.newUserFlag) {
+                    this.props.navigation.navigate("EnterName", {
+                        mobile: this.props.route.params.mobile,
+                    })
+                } else {
+                    this.props.navigation.navigate("Home")
+                }
+            }
+        } catch (e) {
+            alert(JSON.stringify(e) + 'eerror')
+            alertHandler({
+                message: 'Firebase token error',
+                okTxt: 'Try again !',
+                onPressOk: () => { this.props.navigation.navigate("LoginScreen") }
+            })
+        }
+    }
+
+
+
+    // codeConformation = (code) => {
+    //     // alert(JSON.stringify(this.props.route.params.authCode))
+    //     // alert(this.state.conformCode)
+    //     if (this.state.conformCode == null || this.state.authCode == null) {
+    //         alertHandler({
+    //             message: 'Firebase token error',
+    //             okTxt: 'Try again !',
+    //             onPressOk: () => { this.props.navigation.navigate("LoginScreen") }
+    //         })
+    //     } else {
+    //         // { mobile: this.state.mobileNumber, authCode: this.state.authConformation }
+    //         if (this.props.route.params.newUserFlag) {
+    //             this.props.navigation.navigate("EnterName", {
+    //                 mobile: this.props.route.params.mobile,
+    //                 authCode: this.state.authCode,
+    //                 conformCode: this.state.conformCode
+    //             })
+    //         } else {
+
+    //         }
+    //     }
+    // }
+
+    navigateToHomeScreen = () => {
+        this.props.navigation.navigate("Home")
     }
 
 
@@ -143,7 +246,11 @@ export default class OtpScreen extends Component {
                             ref={"pin6ref"}
                             onChangeText={(pin6) => {
                                 this.setState({ pin6: pin6 }, () => {
-                                    alert(`${this.state.pin1} ,${this.state.pin2},${this.state.pin3},${this.state.pin4},${this.state.pin6},${this.state.pin6} `)
+                                    // alert(`${this.state.pin1}${this.state.pin2}${this.state.pin3}${this.state.pin4}${this.state.pin6}${this.state.pin6} + '-----dsaas'`)
+                                    this.setState({ conformCode: `${this.state.pin1}${this.state.pin2}${this.state.pin3}${this.state.pin4}${this.state.pin6}${this.state.pin6}` }, () => { this.codeConformation() })
+                                    // alert(this.state.conformCode)
+
+
                                 })
                                 if (pin6 != "") {
                                 }
@@ -160,7 +267,7 @@ export default class OtpScreen extends Component {
 
 
                     <View style={styles.blueBtnBgView}>
-                        <BlueButton onpress={() => this.props.navigation.navigate("EnterName")} />
+                        <BlueButton onpress={() => alert(JSON.stringify(this.state.authCode))} />
                     </View>
 
                 </View>
@@ -168,6 +275,12 @@ export default class OtpScreen extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+
+});
+
+export default connect(mapStateToProps, { updateToken })(OtpScreen)
 
 const styles = StyleSheet.create({
     inputStyle: {

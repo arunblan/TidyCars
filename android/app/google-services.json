@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "280312548079",
+    "project_id": "tidycar-ba693",
+    "storage_bucket": "tidycar-ba693.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:280312548079:android:8665096d116ab02944691a",
+        "android_client_info": {
+          "package_name": "com.tidycar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "280312548079-bh1ae3u4ei36abc8v7qb9a4cuopr8b2u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPON98sBNPxc8fsDUR_T7S8jcM58fEpV8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "280312548079-bh1ae3u4ei36abc8v7qb9a4cuopr8b2u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

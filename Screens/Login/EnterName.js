@@ -6,12 +6,89 @@ import { color } from 'react-native-reanimated';
 import FontStyle from '../../Compoents/FontStyle';
 import { StackActions, NavigationActions } from 'react-navigation';
 import BlueButton from '../../Compoents/BlueButton';
+import { token } from '../../Src/api_config';
+import { getApiCall, postApiCall } from '../../Src/service';
+import { nameCheck } from '../../Compoents/Validation';
+import alertHandler from '../../Compoents/AlertHandler';
+
 export default class EnterName extends Component {
+
+    constructor() {
+        super()
+        this.state = {
+
+            isLoading: true,
+            dataSource: {},
+            serviceTypes: [],
+            enterdName: ''
+
+
+        }
+    }
 
 
     componentDidMount = () => {
+
+        alert(this.props.route.params.mobile)
+        // this.props.navigation.navigate("EnterName", { mobile: this.props.route.params.mobile, authCode:this.state.authCode,
+        //     conformCode:this.state.conformCode })
+
+
+        // alertHandler({
+        //     tittle: 'sosdma',
+        //     message: 'koma',
+        //     onPressOk: () => { console.log('ok pressdeds') },
+        //     onPressCancel: () => { console.log('cancel pressdeds') },
+        //     okTxt: 'lol'
+        // })
+
+        // if (this.props.route.params) {
+        //     console.log(this.props.route.params.mobile + 'given mobile number')
+        // }
+
+
+        // this.printName(name = "name----------------------------------", age = '34')
+        // getApiCall({ apiUrl: '/ServiceOptions/1' }, (responceJson) => {
+        //     this.setState({
+        //         isloading: false,
+        //         dataSource: responceJson,
+        //         serviceTypes: responceJson.data.serviceTypes
+        //     })
+        //     console.log(responceJson.data.serviceTypes[1])
+        // })
+
+
+
     }
 
+    // navigateToPremissionPage = () => {
+
+    // }
+
+    registerAuser = () => {
+        // alert('das')
+        postApiCall({ apiUrl: '/register?name=' + this.state.enterdName + '&mobile=' + this.props.route.params.mobile + '&company_id=1' }, (responceJson) => {
+            console.log(responceJson.status)
+            if (responceJson.status == 'fail') {
+
+                alertHandler({
+                    message: responceJson.message,
+                    okTxt: 'Try again !',
+                    onPressOk: () => { this.props.navigation.navigate("LoginScreen") }
+                })
+            } else {
+                this.props.navigation.navigate("AllowLocation")
+            }
+            this.setState({
+                isloading: false,
+                dataSource: responceJson,
+            })
+        })
+    }
+
+    // printName = (name, age) => {
+    //     console.log(name + age)
+    // }
 
 
 
@@ -37,14 +114,14 @@ export default class EnterName extends Component {
                         <TextInput
                             placeholder={'Enter Your Name'}
                             style={[styles.inputStyle, FontStyle.ag24Reguler]}
-
+                            onChangeText={(txt) => this.setState({ enterdName: txt })}
                             placeholderTextColor={'#8968FF'}
                         />
                         {/* </View> */}
 
 
                         <View style={styles.blueBtnBgView}>
-                            <BlueButton onpress={() => this.props.navigation.navigate("AllowLocation")} />
+                            <BlueButton onpress={() => nameCheck(this.state.enterdName) ? this.registerAuser() : console.log('nameCheck error')} />
                         </View>
                     </KeyboardAvoidingView>
                 </TouchableWithoutFeedback>

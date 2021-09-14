@@ -7,6 +7,7 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import Carousel, { Pagination } from 'react-native-snap-carousel';
+import { imageBase_url } from "../Src/api_config";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -27,7 +28,7 @@ class SwiperScreen extends Component {
                 onPress={() => {
                     this.onPressBanner(it)
                 }}>
-                <Image source={it.image_url} style={{ height: 130, width: windowWidth - 32, borderRadius: 13 }} />
+                <Image source={{ uri: imageBase_url + it.img_url }} style={{ height: 130, width: windowWidth - 32, borderRadius: 13 }} />
             </TouchableOpacity>
         );
     }

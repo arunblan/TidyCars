@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, StyleSheet, Button, ScrollView } from 'react-native';
+import { View, Text, TextInput, Image, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, StyleSheet, Button, ScrollView, Dimensions } from 'react-native';
 import { color } from 'react-native-reanimated';
 // import FontStyle from '../../Compoents/FontStyle';
 import { StackActions, NavigationActions } from 'react-navigation';
 import FontStyle from '../../../Compoents/FontStyle';
+import { imageBase_url } from '../../../Src/api_config';
+
+const windowHeight = Dimensions.get('window').height;
 
 export default class WashMethodDetails extends Component {
+
 
 
     constructor() {
@@ -16,6 +20,7 @@ export default class WashMethodDetails extends Component {
     }
 
     componentDidMount = () => {
+        // alert(this.props.route.params.washingImage + 'sds')
     }
 
     backNavigation = () => {
@@ -32,7 +37,7 @@ export default class WashMethodDetails extends Component {
                         <View style={styles.mainImageBgView}>
                             <Image
                                 style={styles.mainImageStyle}
-                                source={require('../../../Assets/Images/carWashDummy1.png')}
+                                source={{ uri: imageBase_url + this.props.route.params.washingImage }}
 
                             />
                             <View
@@ -53,7 +58,7 @@ export default class WashMethodDetails extends Component {
 
 
                             </View>
-                            <Text numberOfLines={2} style={[FontStyle.ag42Bold, styles.mainTittle]}>Steam Wash</Text>
+                            <Text numberOfLines={2} style={[FontStyle.ag42Bold, styles.mainTittle]}>{this.props.route.params.washingName}</Text>
                             <TouchableOpacity
                                 style={styles.addTouch}
                             >
@@ -62,16 +67,13 @@ export default class WashMethodDetails extends Component {
 
                         </View>
                         <View style={styles.priceBgView}>
-                            <Text style={[FontStyle.ag32Semibold, { color: '#552EDF', marginLeft: 24 }]}>$ 400</Text>
+                            <Text style={[FontStyle.ag32Semibold, { color: '#552EDF', marginLeft: 24 }]}>{'₹ ' + this.props.route.params.washingPrice}</Text>
                         </View>
                         <View
                             style={styles.discriptionView}
                         >
                             <Text style={FontStyle.ag14Reguler}>
-                                Steam car wash is the process of using steam vapor to clean a car’s exterior and interior. For decades steam has been a critical component of the cleaning industry due to its effectiveness and sanitizing power. Steam car wash is the process of using steam vapor to clean a car’s exterior
-                                Steam car wash is the process of using steam vapor to clean a car’s exterior and interior. For decades steam has been a critical component of the cleaning industry due to its effectiveness and sanitizing power. Steam car wash is the process of using steam vapor to clean a car’s exterior
-                                Steam car wash is the process of using steam vapor to clean a car’s exterior and interior. For decades steam has been a critical component of the cleaning industry due to its effectiveness and sanitizing power. Steam car wash is the process of using steam vapor to clean a car’s exterior
-                                Steam car wash is the process of using steam vapor to clean a car’s exterior and interior. For decades steam has been a critical component of the cleaning industry due to its effectiveness and sanitizing power. Steam car wash is the process of using steam vapor to clean a car’s exterior
+                                {this.props.route.params.washingDescription}
                             </Text>
                         </View>
                     </View >
@@ -103,7 +105,8 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 16,
         borderBottomRightRadius: 16,
         width: '100%',
-        resizeMode: 'cover'
+        resizeMode: 'cover',
+        height: windowHeight / 2
     },
     backBgView:
     {
